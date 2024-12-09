@@ -8,7 +8,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputText from 'primevue/inputtext';
 import Dialog from 'primevue/dialog';
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import IconField from 'primevue/iconfield';
 import axios from 'axios';
 import InputNumber from "primevue/inputnumber";
@@ -150,7 +150,7 @@ const submitForm = (formType) => {
                 </div>
                 <div class="flex flex-col items-start gap-1 self-stretch">
                     <InputLabel for="to_meta_login" :value="$t('public.transfer_to')" />
-                    <Dropdown
+                    <Select
                         v-model="selectedAccount"
                         :options="filteredTransferOptions"
                         optionLabel="name"

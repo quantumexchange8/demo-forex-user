@@ -4,7 +4,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import Button from "@/Components/Button.vue"
 import { useForm, usePage } from '@inertiajs/vue3';
 import InputText from 'primevue/inputtext';
-import Dropdown from 'primevue/dropdown';
+import Select from 'primevue/select';
 import {ref, watch} from "vue";
 
 defineProps({
@@ -135,7 +135,7 @@ const submitForm = () => {
                         {{ $t('public.phone_number') }}
                     </InputLabel>
                     <div class="flex gap-2 items-center self-stretch relative">
-                        <Dropdown
+                        <Select
                             v-model="selectedCountry"
                             :options="countries"
                             filter
@@ -161,7 +161,7 @@ const submitForm = () => {
                                     <div>{{ slotProps.option.name }} <span class="text-gray-500">{{ slotProps.option.phone_code }}</span></div>
                                 </div>
                             </template>
-                        </Dropdown>
+                        </Select>
 
                         <InputText
                             id="phone"

@@ -4,7 +4,7 @@ import InputNumber from 'primevue/inputnumber';
 import {useForm} from "@inertiajs/vue3";
 import Button from "@/Components/Button.vue"
 import InputError from "@/Components/InputError.vue";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import {ref, watch} from "vue";
 import {transactionFormat} from "@/Composables/index.js";
 
@@ -72,7 +72,7 @@ const closeDialog = () => {
                 <!-- input fields -->
                 <div class="flex flex-col items-start gap-1 self-stretch">
                     <InputLabel for="receiving_wallet" :value="$t('public.transfer_to')" />
-                    <Dropdown
+                    <Select
                         v-model="transferAmount"
                         :options="transferOptions"
                         optionLabel="name"

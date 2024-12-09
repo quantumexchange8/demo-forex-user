@@ -2,7 +2,7 @@ export default {
     root: ({ props }) => ({
         class: ['inline-flex relative w-full', { '[&>input]:pr-10': props.toggleMask }]
     }),
-    panel: {
+    overlay: {
         class: [
             // Spacing
             'p-3',
@@ -54,13 +54,13 @@ export default {
             'transition-all duration-1000 ease-in-out'
         ]
     }),
-    showicon: {
-        class: ['absolute top-1/2 right-3 -mt-2 z-10', 'text-gray-500']
+    maskIcon: {
+        class: ['absolute top-1/2 right-3 -mt-2 z-10', 'text-gray-500', 'cursor-pointer']
     },
-    hideicon: {
-        class: ['absolute top-1/2 right-3 -mt-2 z-10', 'text-gray-500']
+    unmaskIcon: {
+        class: ['absolute top-1/2 right-3 -mt-2 z-10', 'text-gray-500', 'cursor-pointer']
     },
-    input: {
+    pcinput: {
         root: ({ props, context, parent }) => ({
             class: [
                 // Font
@@ -72,6 +72,7 @@ export default {
 
                 // Spacing
                 'm-0',
+                'w-full',
                 {
                     'py-3 px-3.5': props.size == 'large',
                     'py-1.5 px-2': props.size == 'small',

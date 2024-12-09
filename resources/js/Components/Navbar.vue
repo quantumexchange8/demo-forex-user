@@ -9,7 +9,7 @@ import {
 } from '@tabler/icons-vue';
 import QrcodeVue from 'qrcode.vue'
 import {Link, usePage} from "@inertiajs/vue3";
-import OverlayPanel from "primevue/overlaypanel";
+import Popover from "primevue/popover";
 import {ref} from "vue";
 import {loadLanguageAsync} from "laravel-vue-i18n";
 import Dialog from "primevue/dialog";
@@ -100,15 +100,15 @@ const downloadQrCode = () => {
         <div class="flex items-center">
             <div
                 class="w-12 h-12 p-3.5 flex items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-100 text-gray-800"
-                @click="visible = true"
-            >
-                <IconQrcode size="20" stroke-width="1.25" />
-            </div>
-            <div
-                class="w-12 h-12 p-3.5 flex items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-100 text-gray-800"
                 @click="toggle"
             >
                 <IconWorld size="20" stroke-width="1.25" />
+            </div>
+            <div
+                class="w-12 h-12 p-3.5 flex items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-100 text-gray-800"
+                @click="visible = true"
+            >
+                <IconQrcode size="20" stroke-width="1.25" />
             </div>
             <Link
                 class="w-12 h-12 p-3.5 flex items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-100 text-gray-800 hidden md:block"
@@ -121,18 +121,18 @@ const downloadQrCode = () => {
         </div>
     </nav>
 
-    <OverlayPanel ref="op">
+    <Popover ref="op">
         <div class="py-2 flex flex-col items-center w-[120px]">
             <div
                 v-for="locale in locales"
-                class="p-3 flex items-center gap-3 self-stretch text-sm hover:bg-gray-100 hover:cursor-pointer"
+                class="p-3 my-0.5 flex items-center gap-3 self-stretch text-sm hover:bg-gray-100 hover:cursor-pointer"
                 :class="{'bg-primary-50 text-primary-500': locale.value === currentLocale}"
                 @click="changeLanguage(locale.value)"
             >
                 {{ locale.label }}
             </div>
         </div>
-    </OverlayPanel>
+    </Popover>
 
 
     <Dialog

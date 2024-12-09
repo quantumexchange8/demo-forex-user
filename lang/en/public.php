@@ -486,4 +486,6 @@ return [
     "display_avatar" => "Display Avatar",
     "display_avatar_caption" => "Selected avatar will be displayed instead of your profile photo.",
     "toast_create_post_success" => "You’ve successfully created a new post!",
+    "access_denied_desc" => "You don’t have permission to view this page. Maybe try a different route?",
+
 ];

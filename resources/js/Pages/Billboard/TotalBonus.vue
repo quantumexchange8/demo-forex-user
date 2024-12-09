@@ -1,6 +1,6 @@
 <script setup>
 import TotalBonusChart from "@/Pages/Billboard/Partials/TotalBonusChart.vue";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import {ref} from "vue";
 import dayjs from "dayjs";
 import {transactionFormat} from "@/Composables/index.js";
@@ -29,7 +29,7 @@ selectedYear.value = dayjs().year().toString();
         <div class="flex flex-col self-stretch">
             <div class="flex justify-between items-center self-stretch">
                 <span class="text-sm text-gray-500">{{ $t('public.total_bonus_earned') }} ($)</span>
-                <Dropdown
+                <Select
                     v-model="selectedYear"
                     :options="yearOptions"
                     optionLabel="value"

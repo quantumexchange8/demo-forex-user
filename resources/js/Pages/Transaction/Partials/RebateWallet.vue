@@ -1,5 +1,5 @@
 <script setup>
-import OverlayPanel from 'primevue/overlaypanel';
+import Popover from 'primevue/popover';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import {FilterMatchMode} from "primevue/api";
@@ -299,7 +299,7 @@ const rowClicked = (data) => {
         </DataTable>
     </div>
 
-    <OverlayPanel ref="op">
+    <Popover ref="op">
         <div class="flex flex-col gap-8 w-60 py-5 px-4">
             <!-- Filter type-->
             <div class="flex flex-col gap-2 items-center self-stretch">
@@ -424,7 +424,7 @@ const rowClicked = (data) => {
                 </Button>
             </div>
         </div>
-    </OverlayPanel>
+    </Popover>
 
     <Dialog
         v-model:visible="visible"

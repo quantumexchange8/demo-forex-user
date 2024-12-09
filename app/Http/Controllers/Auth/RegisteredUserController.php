@@ -48,26 +48,35 @@ class RegisteredUserController extends Controller
             'phone' => trans('public.phone_number'),
         ];
 
+        // $validator = Validator::make($request->all(), $rules);
+        // $validator->setAttributeNames($attributes);
+
+        // if ($request->step == 1) {
+        //     $validator->validate();
+        // } elseif ($request->step == 2) {
+        //     $additionalRules = [
+        //         'password' => ['required', 'confirmed', Password::min(8)->letters()->symbols()->numbers()->mixedCase()],
+        //     ];
+        //     $rules = array_merge($rules, $additionalRules);
+
+        //     $additionalAttributes = [
+        //         'password' => trans('public.password'),
+        //     ];
+        //     $attributes = array_merge($attributes, $additionalAttributes);
+
+        //     $validator = Validator::make($request->all(), $rules);
+        //     $validator->setAttributeNames($attributes);
+        //     $validator->validate();
+        // }
+
+        if ($request->step == 2) {
+            $rules['password'] = ['required', 'confirmed', Password::min(8)->letters()->symbols()->numbers()->mixedCase()];
+            $attributes['password'] = trans('public.password');
+        }
+    
         $validator = Validator::make($request->all(), $rules);
         $validator->setAttributeNames($attributes);
-
-        if ($request->step == 1) {
-            $validator->validate();
-        } elseif ($request->step == 2) {
-            $additionalRules = [
-                'password' => ['required', 'confirmed', Password::min(8)->letters()->symbols()->numbers()->mixedCase()],
-            ];
-            $rules = array_merge($rules, $additionalRules);
-
-            $additionalAttributes = [
-                'password' => trans('public.password'),
-            ];
-            $attributes = array_merge($attributes, $additionalAttributes);
-
-            $validator = Validator::make($request->all(), $rules);
-            $validator->setAttributeNames($attributes);
-            $validator->validate();
-        }
+        $validator->validate();
 
         return back();
     }
@@ -149,7 +158,7 @@ class RegisteredUserController extends Controller
         //     $user->addMedia($request->kyc_verification)->toMediaCollection('kyc_verification');
         // }
 
-        event(new Registered($user));
+        event(new Registered($user)); // < Load very long, FIX
 
         Auth::login($user);
 

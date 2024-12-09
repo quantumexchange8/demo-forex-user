@@ -14,15 +14,17 @@ import {
 } from "@tabler/icons-vue"
 import {computed, h, ref} from "vue";
 import InputText from "primevue/inputtext";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import Password from 'primevue/password';
 import {KycFemale, KycMale} from "@/Components/Icons/solid.jsx";
-import OverlayPanel from 'primevue/overlaypanel';
+import Popover from 'primevue/popover';
 import {loadLanguageAsync} from "laravel-vue-i18n";
 
 const props = defineProps({
     referral_code: String
 })
+
+const loading = ref(false);
 
 const formSteps = ref([
     {
@@ -76,16 +78,23 @@ const handleContinue = () => {
         form.phone_number = selectedCountry.value.phone_code + form.phone;
     }
 
-    if (selectedStep.value.step < 2) {
-        form.step = selectedStep.value.step;
-        form.post(route('register.validateStep'), {
-            onSuccess: () => {
+    form.step = selectedStep.value.step;
+
+    // Validate the current step
+    form.post(route('register.validateStep'), {
+        onSuccess: () => {
+            if (selectedStep.value.step < 2) {
+                // Move to the next step
                 selectStep(selectedStep.value.step + 1);
+            } else {
+                // If validation is successful on step 2, submit the form
+                handleSubmit();
             }
-        });
-    } else {
-        handleSubmit();
-    }
+        },
+        onError: (errors) => {
+            console.error('Validation failed:', errors);
+        },
+    });
 };
 
 const handleBack = () => {
@@ -95,8 +104,11 @@ const handleBack = () => {
 };
 
 const handleSubmit = () => {
+    loading.value = true;
     form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
+        onFinish: () => {
+            form.reset('password', 'password_confirmation');
+        },
     });
 };
 
@@ -134,7 +146,8 @@ const toggle = (event) => {
 const currentLocale = ref(usePage().props.locale);
 const locales = [
     {'label': 'English', 'value': 'en'},
-    {'label': '中文', 'value': 'tw'},
+    {'label': '简体中文', 'value': 'cn'},
+    {'label': '繁體中文', 'value': 'tw'},
 ];
 
 const changeLanguage = async (langVal) => {
@@ -295,14 +308,14 @@ const removeKycVerification = () => {
                                     <div class="flex flex-col gap-1 items-start self-stretch">
                                         <InputLabel for="phone" :value="$t('public.phone_number')" :invalid="!!form.errors.phone" />
                                         <div class="flex gap-2 items-center self-stretch relative">
-                                            <Dropdown
+                                            <Select
                                                 v-model="selectedCountry"
                                                 :options="countries"
                                                 filter
                                                 :filterFields="['name', 'phone_code']"
                                                 optionLabel="name"
                                                 :placeholder="$t('public.phone_code')"
-                                                class="w-[100px]"
+                                                class="w-[120px]"
                                                 scroll-height="236px"
                                                 :invalid="!!form.errors.phone"
                                             >
@@ -311,15 +324,15 @@ const removeKycVerification = () => {
                                                         <div>{{ slotProps.value.phone_code }}</div>
                                                     </div>
                                                     <span v-else>
-                                            {{ slotProps.placeholder }}
-                                        </span>
+                                                        {{ slotProps.placeholder }}
+                                                    </span>
                                                 </template>
                                                 <template #option="slotProps">
-                                                    <div class="flex items-center w-[262px] md:max-w-[236px]">
+                                                    <div class="flex items-center">
                                                         <div>{{ slotProps.option.name }} <span class="text-gray-500">{{ slotProps.option.phone_code }}</span></div>
                                                     </div>
                                                 </template>
-                                            </Dropdown>
+                                            </Select>
 
                                             <InputText
                                                 id="phone"
@@ -428,7 +441,7 @@ const removeKycVerification = () => {
                                 variant="primary-flat"
                                 class="w-full"
                                 @click.prevent="handleContinue"
-                                :disabled="form.processing"
+                                :disabled="form.processing || loading"
                             >
                                 {{ $t('public.continue') }}
                             </Button>
@@ -466,7 +479,7 @@ const removeKycVerification = () => {
         </div>
     </div>
 
-    <OverlayPanel ref="op">
+    <Popover ref="op">
         <div class="py-2 flex flex-col items-center w-[120px]">
             <div
                 v-for="locale in locales"
@@ -477,7 +490,7 @@ const removeKycVerification = () => {
                 {{ locale.label }}
             </div>
         </div>
-    </OverlayPanel>
+    </Popover>
 </template>
 
 

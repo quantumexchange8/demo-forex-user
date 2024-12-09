@@ -8,7 +8,7 @@ import StatusBadge from '@/Components/StatusBadge.vue';
 import {transactionFormat} from "@/Composables/index.js";
 import Button from '@/Components/Button.vue';
 import Badge from '@/Components/Badge.vue';
-import Dropdown from 'primevue/dropdown';
+import Select from 'primevue/select';
 import { wTrans } from 'laravel-vue-i18n';
 import AssetMasterAction from "@/Pages/AssetMaster/Partials/AssetMasterAction.vue";
 import { usePage } from '@inertiajs/vue3';
@@ -16,7 +16,7 @@ import debounce from "lodash/debounce.js";
 import Empty from "@/Components/Empty.vue";
 import {NoAssetMaster} from "@/Components/Icons/solid.jsx";
 import Paginator from "primevue/paginator"
-import OverlayPanel from "primevue/overlaypanel"
+import Popover from "primevue/popover"
 import Checkbox from "primevue/checkbox"
 import Slider from 'primevue/slider';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue'
@@ -253,7 +253,7 @@ getAvailableAccounts();
                             {{ filterCount }}
                         </Badge>
                     </Button>
-                    <Dropdown
+                    <Select
                         v-model="sorting"
                         :options="sortingDropdownOptions"
                         optionLabel="name"
@@ -456,7 +456,7 @@ getAvailableAccounts();
             </Empty>
         </div>
 
-        <OverlayPanel ref="op">
+        <Popover ref="op">
             <div class="w-60 flex flex-col items-center">
                 <div class="flex flex-col gap-8 w-60 py-5 px-4">
 
@@ -510,6 +510,6 @@ getAvailableAccounts();
                     </Button>
                 </div>
             </div>
-        </OverlayPanel>
+        </Popover>
     </AuthenticatedLayout>
 </template>

@@ -4,13 +4,13 @@ import InputText from 'primevue/inputtext';
 import RadioButton from 'primevue/radiobutton';
 import Button from '@/Components/Button.vue';
 import {usePage} from '@inertiajs/vue3';
-import OverlayPanel from 'primevue/overlaypanel';
+import Popover from 'primevue/popover';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import DefaultProfilePhoto from "@/Components/DefaultProfilePhoto.vue";
 import {FilterMatchMode} from "primevue/api";
 import Loader from "@/Components/Loader.vue";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import {
     IconSearch,
     IconCircleXFilled,
@@ -279,7 +279,7 @@ watchEffect(() => {
         </DataTable>
     </div>
 
-    <OverlayPanel ref="op">
+    <Popover ref="op">
         <div class="flex flex-col gap-8 w-60 py-5 px-4">
             <!-- Filter Role-->
             <div class="flex flex-col gap-2 items-center self-stretch">
@@ -303,7 +303,7 @@ watchEffect(() => {
                 <div class="flex self-stretch text-xs text-gray-950 font-semibold">
                     {{ $t('public.filter_level_header') }}
                 </div>
-                <Dropdown
+                <Select
                     v-model="level"
                     :options="levels"
                     filter
@@ -327,7 +327,7 @@ watchEffect(() => {
                             <div>{{ slotProps.option.name }}</div>
                         </div>
                     </template>
-                </Dropdown>
+                </Select>
             </div>
 
             <!-- Filter Upline-->
@@ -335,7 +335,7 @@ watchEffect(() => {
                 <div class="flex self-stretch text-xs text-gray-950 font-semibold">
                     {{ $t('public.filter_upline_header') }}
                 </div>
-                <Dropdown
+                <Select
                     v-model="upline_id"
                     :options="uplines"
                     filter
@@ -374,7 +374,7 @@ watchEffect(() => {
                             <div>{{ slotProps.option.name }}</div>
                         </div>
                     </template>
-                </Dropdown>
+                </Select>
             </div>
 
             <div class="flex w-full">
@@ -388,5 +388,5 @@ watchEffect(() => {
                 </Button>
             </div>
         </div>
-    </OverlayPanel>
+    </Popover>
 </template>

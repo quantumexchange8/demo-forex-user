@@ -483,4 +483,5 @@ return [
     "display_avatar" => "显示头像",
     "display_avatar_caption" => "选择的头像将显示在您的论坛个人资料照片位置.",
     "toast_create_post_success" => "您已成功创建了新帖子!",
+    "access_denied_desc" => "您没有权限查看此页面。也许试试其他路径？",
 ];

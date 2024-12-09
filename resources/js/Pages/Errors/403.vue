@@ -29,7 +29,7 @@ const handleLogOut = () => {
                     class="w-full md:w-auto text-nowrap justify-center"
                     @click="handleLogOut"
                 >
-                    {{$t('public.logout')}}
+                    {{$t('public.log_out')}}
                 </Button>
             </div>
         </div>

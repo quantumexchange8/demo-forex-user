@@ -1,23 +1,27 @@
 export default {
-    root: ({ props }) => ({
+    root: {
         class: [
             'relative',
-            '[&>input]:w-full',
 
-            '[&>*:first-child]:absolute',
-            '[&>*:first-child]:top-3',
-            '[&>*:first-child]:bottom-3',
-            // '[&>*:first-child]:-mt-2',
-            // '[&>*:first-child]:leading-none',
-            // '[&>*:first-child]:text-surface-900/60 dark:[&>*:first-child]:text-white/60',
-            {
-                '[&>*:first-child]:right-4': props.iconPosition === 'right',
-                '[&>*:first-child]:left-4': props.iconPosition === 'left'
-            },
-            {
-                '[&>*:last-child]:pr-10': props.iconPosition === 'right',
-                '[&>*:last-child]:pl-10': props.iconPosition === 'left'
-            }
+            '[&>[data-pc-name=inputicon]]:absolute',
+            '[&>[data-pc-name=inputicon]]:top-1/2',
+            '[&>[data-pc-name=inputicon]]:-mt-2',
+            '[&>[data-pc-name=inputicon]]:text-gray-950/60',
+
+            '[&>[data-pc-name=inputicon]:first-child]:left-3',
+            '[&>[data-pc-name=inputicon]:last-child]:right-3',
+
+            '[&>[data-pc-name=inputtext]:first-child]:pr-10',
+            '[&>[data-pc-name=inputtext]:last-child]:pl-10',
+
+            // filter
+            '[&>[data-pc-extend=inputicon]]:absolute',
+            '[&>[data-pc-extend=inputicon]]:top-1/2',
+            '[&>[data-pc-extend=inputicon]]:-mt-2',
+            '[&>[data-pc-extend=inputicon]]:text-gray-950/60',
+
+            '[&>[data-pc-extend=inputicon]:first-child]:left-3',
+            '[&>[data-pc-extend=inputicon]:last-child]:right-3'
         ]
-    })
+    }
 };

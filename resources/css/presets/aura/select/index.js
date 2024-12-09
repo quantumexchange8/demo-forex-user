@@ -4,7 +4,7 @@ export default {
             // Display and Position
             'inline-flex',
             'relative',
-
+            { 'w-full': props.fluid },
             // Shape
             { 'rounded-lg': parent.instance.$name !== 'InputGroup' },
             { 'first:rounded-l-lg rounded-none last:rounded-r-lg': parent.instance.$name == 'InputGroup' },
@@ -20,9 +20,9 @@ export default {
             { 'border-gray-300': !props.invalid },
 
             // Invalid State
-            'invalid:focus:ring-error-500',
+            // 'invalid:focus:ring-error-500',
             'invalid:hover:border-error-500',
-            { 'border-error-500 dark:border-error-500': props.invalid },
+            { 'border-error-500 focus:border-error-500': props.invalid },
 
             // Transitions
             'transition-all',
@@ -36,9 +36,10 @@ export default {
             'select-none',
             'shadow-input',
             { 'bg-gray-50 text-gray-300 select-none pointer-events-none cursor-default': props.disabled }
+
         ]
     }),
-    input: ({ props, parent }) => ({
+    label: ({ props, parent }) => ({
         class: [
             //Font
             'text-sm',
@@ -50,7 +51,7 @@ export default {
             // Color and Background
             'bg-transparent',
             'border-0',
-            { 'text-gray-950': props.modelValue || props.modelValue === 0, 'text-gray-400': !props.modelValue && props.modelValue !== 0 },
+            { 'text-gray-950': props.modelValue != undefined, 'text-gray-400': props.modelValue == undefined },
             'placeholder:text-gray-400',
 
             // Sizing and Spacing
@@ -59,7 +60,7 @@ export default {
             { 'pr-7': props.showClear },
 
             //Shape
-            'rounded-l-lg',
+            'rounded-l',
 
             // Transitions
             'transition',
@@ -79,7 +80,7 @@ export default {
             'appearance-none'
         ]
     }),
-    trigger: ({ parent, state }) => ({
+    dropdown: ({ parent, state }) => ({
         class: [
             // Flexbox
             'flex items-center justify-center',
@@ -93,12 +94,12 @@ export default {
             'w-10',
 
             // Shape
-            'rounded-r-lg',
+            'rounded-r',
             { 'rotate-180': parent.instance.$name === 'InputGroup' || state.focused },
             { 'rotate-0':  !state.focused },
         ]
     }),
-    panel: {
+    overlay: {
         class: [
             // Colors
             'bg-white',
@@ -106,14 +107,16 @@ export default {
 
             // Shape
             'border border-gray-300',
-            'rounded-lg',
-            'shadow-[0_8px_16px_-4px_rgba(12,17,29,0.08)]',
+            'rounded',
+            'shadow-dropdown',
+
+            'mt-1'
         ]
     },
-    wrapper: {
+    listContainer: {
         class: [
             // Sizing
-            'max-h-[228px]',
+            'max-h-[236px]',
 
             // Misc
             'overflow-auto'
@@ -122,15 +125,17 @@ export default {
     list: {
         class: 'list-none py-2'
     },
-    item: ({ context }) => ({
+    option: ({ context }) => ({
         class: [
             'relative',
+            'flex items-center',
 
             // Font
             'text-sm',
 
             // Spacing
-            'm-0 p-3',
+            'm-0 px-4 py-3',
+            // 'first:mt-0 mt-[2px]',
 
             // Shape
             'border-0',
@@ -138,16 +143,15 @@ export default {
             // Colors
             {
                 'text-gray-950': !context.focused && !context.selected,
-                'bg-primary-50': context.focused && !context.selected,
-                'text-primary-950': context.focused && !context.selected,
+                'bg-primary-100': context.focused && !context.selected,
+                'text-primary-600': context.focused && !context.selected,
 
-                'text-primary-highlight-inverse': context.selected,
-                'bg-primary-highlight': context.selected
+                'bg-primary-100 text-primary-600': context.selected
             },
 
             //States
-            { 'hover:bg-primary-50': !context.focused && !context.selected },
-            { 'hover:text-primary-500 hover:bg-primary-50': context.focused && !context.selected },
+            { 'hover:bg-gray-100': !context.focused && !context.selected },
+            { 'hover:text-primary-600 hover:bg-primary-100': context.focused && !context.selected },
 
             // Transition
             'transition-shadow duration-200',
@@ -156,30 +160,33 @@ export default {
             'cursor-pointer overflow-hidden whitespace-nowrap'
         ]
     }),
-    itemgroup: {
+    optionGroup: {
         class: [
             'font-semibold',
 
             // Spacing
-            'm-0 py-2 px-3',
+            'm-0 py-3 px-4',
 
             // Colors
-            'text-surface-400 dark:text-surface-500',
+            'bg-transparent',
+            'text-gray-500',
 
             // Misc
             'cursor-auto'
         ]
     },
+    optionCheckIcon: 'relative -ms-1.5 me-1.5 text-gray-700 w-4 h-4',
+    optionBlankIcon: 'w-4 h-4',
     emptymessage: {
         class: [
             // Font
             'text-sm',
 
             // Spacing
-            'py-2 px-3',
+            'py-3 px-4',
 
             // Color
-            'text-gray-500',
+            'text-gray-950',
             'bg-transparent'
         ]
     },
@@ -191,57 +198,19 @@ export default {
 
             //Shape
             'border-b-0',
-            'rounded-tl-lg',
-            'rounded-tr-lg',
+            'rounded-tl',
+            'rounded-tr',
 
             // Color
-            'text-dark-950',
+            'text-gray-950',
             'bg-white',
             'border-gray-300'
         ]
     },
-    filtercontainer: {
-        class: 'relative'
-    },
-    filterinput: {
-        class: [
-            // Font
-            'text-sm',
-
-            // Sizing
-            'py-2 pl-3 pr-7',
-            '-mr-7',
-            'w-full',
-
-            //Color
-            'text-gray-950',
-            'bg-white',
-            'border-gray-400',
-
-            // Shape
-            'border',
-            'rounded-lg',
-            'appearance-none',
-
-            // Transitions
-            'transition',
-            'duration-200',
-
-            // States
-            'hover:border-primary-500',
-            'focus:outline-none focus:border-primary-500',
-
-            // Misc
-            'appearance-none'
-        ]
-    },
-    filtericon: {
-        class: ['absolute', 'top-1/2 right-3', '-mt-2']
-    },
-    clearicon: {
+    clearIcon: {
         class: [
             // Color
-            'text-surface-400 dark:text-surface-500',
+            'text-surface-400',
 
             // Position
             'absolute',
@@ -252,8 +221,8 @@ export default {
             '-mt-2'
         ]
     },
-    loadingicon: {
-        class: 'text-surface-400 dark:text-surface-500 animate-spin'
+    loadingIcon: {
+        class: 'text-surface-400 animate-spin'
     },
     transition: {
         enterFromClass: 'opacity-0 scale-y-[0.8]',

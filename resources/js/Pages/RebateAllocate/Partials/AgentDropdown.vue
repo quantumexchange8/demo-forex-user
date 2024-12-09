@@ -1,6 +1,6 @@
 <script setup>
 import DefaultProfilePhoto from "@/Components/DefaultProfilePhoto.vue";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import { ref, watch } from "vue";
 
 const props = defineProps({
@@ -15,7 +15,7 @@ watch(()=>props.agents, () => {
 </script>
 
 <template>
-    <Dropdown
+    <Select
         v-if="agents.length > 1"
         v-model="selectedAgent"
         :options="agents"
@@ -53,7 +53,7 @@ watch(()=>props.agents, () => {
                 <div>{{ slotProps.option.name }}</div>
             </div>
         </template>
-    </Dropdown>
+    </Select>
     <div
         v-else
         class="py-2 px-3 flex items-center gap-3 w-full"

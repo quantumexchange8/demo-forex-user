@@ -5,7 +5,7 @@ import Dialog from "primevue/dialog";
 import DefaultProfilePhoto from "@/Components/DefaultProfilePhoto.vue";
 import {transactionFormat} from "@/Composables/index.js";
 import InputLabel from "@/Components/InputLabel.vue";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import {useForm} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
 import InputNumber from "primevue/inputnumber";
@@ -193,7 +193,7 @@ const addToFavourites = async (masterId) => {
                 <div class="flex flex-col md:flex-row gap-3 md:gap-5 items-center self-stretch">
                     <div class="flex flex-col items-start gap-1 self-stretch w-full">
                         <InputLabel for="meta_login" :value="$t('public.managed_account')" />
-                        <Dropdown
+                        <Select
                             v-model="selectedAccount"
                             :options="accounts"
                             optionLabel="meta_login"

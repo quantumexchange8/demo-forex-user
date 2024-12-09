@@ -24,7 +24,7 @@ import deferred from './deferred';
 import dialog from './dialog';
 import divider from './divider';
 import dock from './dock';
-import dropdown from './dropdown';
+import select from './select';
 import fieldset from './fieldset';
 import fileupload from './fileupload';
 import floatlabel from './floatlabel';
@@ -51,12 +51,12 @@ import metergroup from './metergroup';
 import multiselect from './multiselect';
 import orderlist from './orderlist';
 import organizationchart from './organizationchart';
-import overlaypanel from './overlaypanel';
 import paginator from './paginator';
 import panel from './panel';
 import panelmenu from './panelmenu';
 import password from './password';
 import picklist from './picklist';
+import popover from './popover';
 import progressbar from './progressbar';
 import progressspinner from './progressspinner';
 import radiobutton from './radiobutton';
@@ -100,7 +100,7 @@ export default {
 
     //forms
     autocomplete,
-    dropdown,
+    select,
     inputnumber,
     inputtext,
     calendar,
@@ -176,9 +176,9 @@ export default {
 
     //overlays
     dialog,
-    overlaypanel,
     sidebar,
     confirmpopup,
+    popover,
 
     //messages
     message,

@@ -1,6 +1,6 @@
 <script setup>
 import PammPerformanceChart from "@/Pages/AssetMaster/Partials/PammPerformanceChart.vue";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import {ref} from "vue";
 import dayjs from "dayjs";
 import {transactionFormat} from "@/Composables/index.js";
@@ -38,7 +38,7 @@ selectedMonth.value = dayjs().format('MM/YYYY');
                     'text-gray-500': selectedMonthProfit === 0,
                 }"
                  >{{ masterDetail ? formatAmount(selectedMonthProfit) : 0 }}%</span>
-                <Dropdown
+                <Select
                     v-model="selectedMonth"
                     :options="historyPeriodOptions"
                     optionLabel="value"
@@ -51,7 +51,7 @@ selectedMonth.value = dayjs().format('MM/YYYY');
         <div class="hidden md:flex flex-col items-start self-stretch">
             <div class="flex justify-between items-center self-stretch">
                 <span class="text-gray-950 text-sm font-bold">{{ $t('public.monthly_pnl_performance') }}</span>
-                <Dropdown
+                <Select
                     v-model="selectedMonth"
                     :options="historyPeriodOptions"
                     optionLabel="value"

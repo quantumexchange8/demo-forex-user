@@ -13,7 +13,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputText from 'primevue/inputtext';
 import IconField from 'primevue/iconfield';
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import {IconCircleCheckFilled, IconInfoOctagonFilled, IconX} from '@tabler/icons-vue';
 import { trans, wTrans } from "laravel-vue-i18n";
 import TermsAndCondition from "@/Components/TermsAndCondition.vue";
@@ -271,7 +271,7 @@ const noticeVisible = ref(true);
                 </div>
                 <div class="flex flex-col items-start gap-1 self-stretch">
                     <InputLabel for="leverage" :value="$t('public.leverages')" />
-                    <Dropdown
+                    <Select
                         v-model="liveAccountForm.leverage"
                         :options="leverages"
                         optionLabel="name"
@@ -288,7 +288,7 @@ const noticeVisible = ref(true);
                             {{ leverages.find(option => option.value === slotProps.value)?.name || slotProps.value || $t('public.leverages_placeholder') }}
                         </span>
                     </template>
-                    </Dropdown>
+                    </Select>
                 </div>
             </div>
             <div class="self-stretch">
@@ -325,7 +325,7 @@ const noticeVisible = ref(true);
                 </div>
                 <div class="flex flex-col items-start gap-1 self-stretch">
                     <InputLabel for="leverage" :value="$t('public.leverage')" />
-                    <Dropdown
+                    <Select
                         v-model="demoAccountForm.leverage"
                         :options="leverages"
                         optionLabel="name"
@@ -341,7 +341,7 @@ const noticeVisible = ref(true);
                             {{ leverages.find(option => option.value === slotProps.value)?.name || slotProps.value || $t('public.leverages_placeholder') }}
                         </span>
                     </template>
-                    </Dropdown>
+                    </Select>
                 </div>
             </div>
             <div class="self-stretch">

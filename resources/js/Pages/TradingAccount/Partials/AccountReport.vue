@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch } from 'vue';
 import Calendar from 'primevue/calendar';
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import { transactionFormat } from '@/Composables/index.js';
@@ -154,7 +154,7 @@ function copyToClipboard(text) {
                         <IconX size="20" />
                     </div>
                 </div>
-                <Dropdown
+                <Select
                     v-model="selectedOption"
                     :options="transferOptions"
                     optionLabel="name"

@@ -3,7 +3,7 @@ import InputLabel from "@/Components/InputLabel.vue";
 import {useForm} from "@inertiajs/vue3";
 import Button from "@/Components/Button.vue"
 import InputError from "@/Components/InputError.vue";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import {ref, watch} from "vue";
 
 const props = defineProps({
@@ -58,7 +58,7 @@ const closeDialog = () => {
                 <!-- input fields -->
                 <div class="flex flex-col items-start gap-1 self-stretch">
                     <InputLabel for="leverage" :value="$t('public.leverage')" />
-                    <Dropdown
+                    <Select
                         v-model="form.leverage"
                         :options="leverages"
                         optionLabel="name"

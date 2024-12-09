@@ -4,12 +4,12 @@ import InputText from 'primevue/inputtext';
 import RadioButton from 'primevue/radiobutton';
 import Button from '@/Components/Button.vue';
 import {usePage} from '@inertiajs/vue3';
-import OverlayPanel from 'primevue/overlaypanel';
+import Popover from 'primevue/popover';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import {FilterMatchMode} from "primevue/api";
 import Loader from "@/Components/Loader.vue";
-import Dropdown from "primevue/dropdown";
+import Select from "primevue/select";
 import {
     IconSearch,
     IconCircleXFilled,
@@ -129,7 +129,7 @@ const clearFilterGlobal = () => {
                             <IconCircleXFilled size="16" />
                         </div>
                     </div>
-                    <Dropdown
+                    <Select
                         v-model="accountType"
                         :options="dropdownOptions"
                         optionLabel="name"
