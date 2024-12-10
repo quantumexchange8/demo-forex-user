@@ -3,6 +3,10 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Button from "@/Components/Button.vue";
 import {ref, h, watch, onMounted, computed} from "vue";
 import TabView from 'primevue/tabview';
+import Tabs from 'primevue/tabs';
+import TabList from 'primevue/tablist';
+import Tab from 'primevue/tab';
+import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import IndividualAccounts from '@/Pages/TradingAccount/Partials/IndividualAccounts.vue';
 import ManagedAccounts from '@/Pages/TradingAccount/Partials/ManagedAccounts.vue';
@@ -12,6 +16,7 @@ import Dialog from 'primevue/dialog';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import InputText from 'primevue/inputtext';
+import InputIcon from 'primevue/inputicon';
 import IconField from 'primevue/iconfield';
 import Select from "primevue/select";
 import {IconCircleCheckFilled, IconInfoOctagonFilled, IconX} from '@tabler/icons-vue';
@@ -217,9 +222,17 @@ const noticeVisible = ref(true);
 
                 <!-- tab -->
                 <div class="flex items-center gap-3 self-stretch">
-                    <TabView class="flex flex-col" :activeIndex="activeIndex" @tab-change="updateType">
+                    <!-- <TabView class="flex flex-col" :activeIndex="activeIndex" @tab-change="updateType">
                         <TabPanel v-for="(tab, index) in tabs" :key="index" :header="tab.title" />
-                    </TabView>
+                    </TabView> -->
+
+                    <Tabs class="flex flex-col" v-model:value="activeIndex" @tab-change="updateType">
+                        <TabList>
+                            <Tab v-for="(tab, index) in tabs" :key="tab.title" :value="index">
+                                {{ $t(tab.title) }}
+                            </Tab>
+                        </TabList>
+                    </Tabs>
                 </div>
 
                 <component :is="tabs[activeIndex]?.component" />
@@ -310,8 +323,10 @@ const noticeVisible = ref(true);
             <div class="flex flex-col items-center gap-5 self-stretch">
                 <div class="flex flex-col items-start gap-2 self-stretch">
                     <InputLabel for="amount" :value="$t('public.amount')" />
-                    <IconField iconPosition="left" class="w-full">
-                        <div class="text-gray-950 text-sm">$</div>
+                    <IconField class="w-full">
+                        <InputIcon>
+                            $
+                        </InputIcon>
                         <InputText
                             id="amount"
                             type="number"

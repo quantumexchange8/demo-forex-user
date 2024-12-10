@@ -7,7 +7,7 @@ import Column from 'primevue/column';
 import Empty from '@/Components/Empty.vue';
 import Loader from "@/Components/Loader.vue";
 import { IconCloudDownload, IconX } from '@tabler/icons-vue';
-import Calendar from 'primevue/calendar';
+import DatePicker from 'primevue/datepicker';
 import {transactionFormat} from "@/Composables/index.js";
 import dayjs from "dayjs";
 import ColumnGroup from "primevue/columngroup";
@@ -108,7 +108,7 @@ const clearDate = () => {
                     <div class="flex flex-col md:flex-row gap-3 items-center self-stretch md:pb-6">
                         <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-3">
                             <div class="relative w-full md:w-[272px]">
-                                <Calendar
+                                <DatePicker
                                     v-model="selectedDate"
                                     selectionMode="range"
                                     :manualInput="false"

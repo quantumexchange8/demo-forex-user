@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watch } from 'vue';
-import Calendar from 'primevue/calendar';
+import DatePicker from 'primevue/datepicker';
 import Select from "primevue/select";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
@@ -137,7 +137,7 @@ function copyToClipboard(text) {
         <template #header>
             <div class="grid grid-cols-1 md:grid-cols-2 w-full gap-3">
                 <div class="relative w-full">
-                    <Calendar
+                    <DatePicker
                         v-model="selectedDate"
                         selectionMode="range"
                         dateFormat="yy/mm/dd"

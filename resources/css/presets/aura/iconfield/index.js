@@ -5,7 +5,7 @@ export default {
 
             '[&>[data-pc-name=inputicon]]:absolute',
             '[&>[data-pc-name=inputicon]]:top-1/2',
-            '[&>[data-pc-name=inputicon]]:-mt-2',
+            '[&>[data-pc-name=inputicon]]:-mt-3',
             '[&>[data-pc-name=inputicon]]:text-gray-950/60',
 
             '[&>[data-pc-name=inputicon]:first-child]:left-3',
@@ -17,7 +17,7 @@ export default {
             // filter
             '[&>[data-pc-extend=inputicon]]:absolute',
             '[&>[data-pc-extend=inputicon]]:top-1/2',
-            '[&>[data-pc-extend=inputicon]]:-mt-2',
+            '[&>[data-pc-extend=inputicon]]:-mt-3',
             '[&>[data-pc-extend=inputicon]]:text-gray-950/60',
 
             '[&>[data-pc-extend=inputicon]:first-child]:left-3',

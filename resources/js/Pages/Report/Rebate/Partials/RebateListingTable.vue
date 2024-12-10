@@ -6,12 +6,12 @@ import Dialog from 'primevue/dialog';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import DefaultProfilePhoto from "@/Components/DefaultProfilePhoto.vue";
-import {FilterMatchMode} from "primevue/api";
+import {FilterMatchMode} from "@primevue/core/api";
 import { transactionFormat } from '@/Composables/index.js';
 import Empty from '@/Components/Empty.vue';
 import Loader from "@/Components/Loader.vue";
 import {IconSearch, IconCircleXFilled, IconX} from '@tabler/icons-vue';
-import Calendar from 'primevue/calendar';
+import DatePicker from 'primevue/datepicker';
 
 const { formatDate, formatDateTime, formatAmount } = transactionFormat();
 
@@ -145,7 +145,7 @@ const openDialog = (rowData) => {
                     </div>
                     <div class="w-full flex flex-col gap-3 md:flex-row">
                         <div class="relative w-full md:w-[272px]">
-                            <Calendar
+                            <DatePicker
                                 v-model="selectedDate"
                                 selectionMode="range"
                                 :manualInput="false"

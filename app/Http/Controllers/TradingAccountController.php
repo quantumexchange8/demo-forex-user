@@ -51,6 +51,7 @@ class TradingAccountController extends Controller
         $locale = app()->getLocale();
 
         $accountOptions = AccountType::whereNot('account_group', 'Demo Account')
+            ->whereNot('account_group', 'Virtual Account')
             ->where('status', 'active')
             ->get()
             ->map(function ($accountType) use ($locale) {

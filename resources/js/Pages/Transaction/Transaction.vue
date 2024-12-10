@@ -1,7 +1,10 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { DepositIcon, WithdrawalIcon } from '@/Components/Icons/solid';
-import TabView from 'primevue/tabview';
+import Tabs from 'primevue/tabs';
+import TabList from 'primevue/tablist';
+import Tab from 'primevue/tab';
+import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import { ref, h, watchEffect } from 'vue';
 import { wTrans } from 'laravel-vue-i18n';
@@ -15,11 +18,13 @@ const { formatAmount } = transactionFormat();
 const tabs = ref([
         {
             title: wTrans('public.trading_accounts'),
-            component: h(TradingAccounts)
+            component: h(TradingAccounts),
+            type: 'trading'
         },
         {
             title: wTrans('public.rebate_wallet'),
             component: h(RebateWallet),
+            type: 'rebate'
         }
 ]);
 
@@ -88,15 +93,19 @@ const user = usePage().props.auth.user;
                 </div>
             </div>
 
-            <TabView
-                v-if="user.role === 'agent'"
-                class="flex flex-col gap-5 self-stretch"
-            >
-                <TabPanel v-for="(tab, index) in tabs" :key="index" :header="tab.title">
-                    <component :is="tab.component" />
-                </TabPanel>
-            </TabView>
-
+            <Tabs v-if="user.role === 'agent'" class="flex flex-col gap-5 self-stretch" value="trading">
+                <TabList>
+                    <Tab v-for="tab in tabs" :key="tab.title" :value="tab.type">
+                        {{ $t(tab.title) }}
+                    </Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel v-for="tab in tabs" :key="tab.component" :value="tab.type">
+                        <component :is="tab.component" />
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
+            
             <TradingAccounts
                 v-else
             />

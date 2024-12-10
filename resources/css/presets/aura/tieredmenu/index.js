@@ -14,7 +14,7 @@ export default {
             'shadow-dropdown'
         ]
     },
-    menu: {
+    rootList: {
         class: [
             // Spacings and Shape
             'list-none',
@@ -23,10 +23,10 @@ export default {
             'outline-none'
         ]
     },
-    menuitem: {
+    item: {
         class: 'relative my-[2px] [&:first-child]:mt-0'
     },
-    content: ({ context }) => ({
+    itemContent: ({ context }) => ({
         class: [
             // Colors
             'text-gray-950',
@@ -50,7 +50,7 @@ export default {
             { 'opacity-60 pointer-events-none cursor-default': context.disabled }
         ]
     }),
-    action: {
+    itemLink: {
         class: [
             'relative',
             // Flexbox
@@ -75,7 +75,7 @@ export default {
             'select-none'
         ]
     },
-    icon: {
+    itemIcon: {
         class: [
             // Spacing
             'mr-2',
@@ -84,10 +84,10 @@ export default {
             'text-gray-500'
         ]
     },
-    label: {
+    itemLabel: {
         class: ['leading-none']
     },
-    submenuicon: {
+    submenuIcon: {
         class: [
             // Position
             'ml-auto'

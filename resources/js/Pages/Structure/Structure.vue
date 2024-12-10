@@ -4,7 +4,10 @@ import { Head, usePage } from '@inertiajs/vue3';
 import {ref, h} from "vue";
 import Network from '@/Pages/Structure/Partials/Network.vue';
 import Listing from '@/Pages/Structure/Partials/Listing.vue';
-import TabView from 'primevue/tabview';
+import Tabs from 'primevue/tabs';
+import TabList from 'primevue/tablist';
+import Tab from 'primevue/tab';
+import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import { wTrans } from 'laravel-vue-i18n';
 import Empty from '@/Components/Empty.vue';
@@ -39,24 +42,27 @@ const handleNoData = () => {
 <template>
     <AuthenticatedLayout :title="$t('public.structure')">
         <div v-if="!showEmpty">
-            <TabView
-                v-if="user.role === 'agent'"
-                v-model:activeIndex="activeIndex"
-                class="flex flex-col gap-5 self-stretch"
-            >
-                <TabPanel v-for="(tab, index) in tabs" :key="index" :header="tab.title">
-                    <component
-                        v-if="index === 0" 
-                        :is="tab.component" 
-                        @noData="handleNoData" 
-                    />
-                    <!-- Render Listing component -->
-                    <component 
-                        v-else
-                        :is="tab.component" 
-                    />
-                </TabPanel>
-            </TabView>
+            <Tabs v-if="user.role === 'agent'" class="flex flex-col gap-5 self-stretch" v-model:value="activeIndex">
+                <TabList>
+                    <Tab v-for="(tab, index) in tabs" :key="tab.title" :value="index">
+                        {{ $t(tab.title) }}
+                    </Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel v-for="(tab, index) in tabs" :key="tab.component" :value="index">
+                        <component
+                            v-if="index === 0" 
+                            :is="tab.component" 
+                            @noData="handleNoData" 
+                        />
+                        <!-- Render Listing component -->
+                        <component 
+                            v-else
+                            :is="tab.component" 
+                        />
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
 
             <Network
                 v-else

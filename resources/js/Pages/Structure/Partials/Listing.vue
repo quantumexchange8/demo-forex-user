@@ -8,7 +8,7 @@ import Popover from 'primevue/popover';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import DefaultProfilePhoto from "@/Components/DefaultProfilePhoto.vue";
-import {FilterMatchMode} from "primevue/api";
+import {FilterMatchMode} from "@primevue/core/api";
 import Loader from "@/Components/Loader.vue";
 import Select from "primevue/select";
 import {

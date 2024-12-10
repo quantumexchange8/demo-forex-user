@@ -2,7 +2,7 @@
 import Popover from 'primevue/popover';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
-import {FilterMatchMode} from "primevue/api";
+import {FilterMatchMode} from "@primevue/core/api";
 import Loader from "@/Components/Loader.vue";
 import {
     IconSearch,
@@ -20,7 +20,7 @@ import InputText from 'primevue/inputtext';
 import { usePage } from '@inertiajs/vue3';
 import StatusBadge from "@/Components/StatusBadge.vue";
 import RadioButton from 'primevue/radiobutton';
-import Calendar from 'primevue/calendar';
+import DatePicker from 'primevue/datepicker';
 import Dialog from 'primevue/dialog';
 import TransactionDetails from '@/Pages/Transaction/Partials/TransactionDetails.vue';
 import Slider from 'primevue/slider';
@@ -305,7 +305,7 @@ const rowClicked = (data) => {
     </div>
 
     <Popover ref="op">
-        <div class="flex flex-col gap-8 w-60 py-5 px-4">
+        <div class="flex flex-col gap-8 w-64 py-5 px-4">
             <!-- Filter type-->
             <div class="flex flex-col gap-2 items-center self-stretch">
                 <div class="flex self-stretch text-xs text-gray-950 font-semibold">
@@ -339,7 +339,7 @@ const rowClicked = (data) => {
                     {{ $t('public.filter_date_header') }}
                 </div>
                 <div class="relative w-full">
-                    <Calendar
+                    <DatePicker
                         v-model="selectedDate"
                         selectionMode="range"
                         dateFormat="yy/mm/dd"

@@ -6,7 +6,7 @@ import ColumnGroup from "primevue/columngroup";
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
 import Loader from "@/Components/Loader.vue";
-import Calendar from "primevue/calendar";
+import DatePicker from "primevue/datepicker";
 import Empty from "@/Components/Empty.vue";
 import Row from "primevue/row";
 import {ref, watch} from "vue";
@@ -126,7 +126,7 @@ const copyToClipboard = (text) => {
                 <div class="flex flex-col md:flex-row gap-3 items-center self-stretch md:pb-6">
                     <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div class="relative w-full md:w-[272px]">
-                            <Calendar
+                            <DatePicker
                                 v-model="selectedDate"
                                 selectionMode="range"
                                 :manualInput="false"

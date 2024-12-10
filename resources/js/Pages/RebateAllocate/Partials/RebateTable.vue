@@ -7,7 +7,7 @@ import {usePage} from '@inertiajs/vue3';
 import Popover from 'primevue/popover';
 import DataTable from "primevue/datatable";
 import Column from "primevue/column";
-import {FilterMatchMode} from "primevue/api";
+import {FilterMatchMode} from "@primevue/core/api";
 import Loader from "@/Components/Loader.vue";
 import Select from "primevue/select";
 import {
