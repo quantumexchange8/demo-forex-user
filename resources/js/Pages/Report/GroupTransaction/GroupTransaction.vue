@@ -1,6 +1,9 @@
 <script setup>
 import { ref, h, watch, computed } from "vue";
-import TabView from 'primevue/tabview';
+import Tabs from 'primevue/tabs';
+import TabList from 'primevue/tablist';
+import Tab from 'primevue/tab';
+import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import Deposit from '@/Pages/Report/GroupTransaction/Partials/Deposit.vue';
 import Withdrawal from '@/Pages/Report/GroupTransaction/Partials/Withdrawal.vue';
@@ -90,11 +93,14 @@ const handleUpdateGroupTotals = ({ deposit, withdrawal, netBalance }) => {
         </div>
 
         <div class="flex items-center self-stretch">
-            <TabView class="flex flex-col" :activeIndex="activeIndex" @tab-change="updateType">
-                <TabPanel v-for="(tab, index) in tabs" :key="index" :header="tab.title" />
-            </TabView>
+            <Tabs class="flex flex-col" v-model:value="activeIndex" @tab-change="updateType">
+                <TabList>
+                    <Tab v-for="(tab, index) in tabs" :key="tab.title" :value="index">
+                        {{ $t(tab.title) }}
+                    </Tab>
+                </TabList>
+            </Tabs>
         </div>
-        
         <component :is="tabs[activeIndex]?.component" :key="selectedType" :selectedType="selectedType" @updateGroupTotals="handleUpdateGroupTotals" />
     </div>
 </template>

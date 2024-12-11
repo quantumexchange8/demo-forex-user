@@ -2,7 +2,10 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Button from "@/Components/Button.vue";
 import { ref, h, watch, onMounted, computed } from "vue";
-import TabView from 'primevue/tabview';
+import Tabs from 'primevue/tabs';
+import TabList from 'primevue/tablist';
+import Tab from 'primevue/tab';
+import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import RebateReport from '@/Pages/Report/Rebate/RebateReport.vue';
 import GroupTransaction from '@/Pages/Report/GroupTransaction/GroupTransaction.vue';
@@ -38,9 +41,13 @@ function updateType(event) {
     <AuthenticatedLayout :title="$t('public.report')">
         <div class="flex flex-col items-center gap-5 self-stretch">
             <div class="flex items-center self-stretch">
-                <TabView class="flex flex-col" :activeIndex="activeIndex" @tab-change="updateType">
-                    <TabPanel v-for="(tab, index) in tabs" :key="index" :header="tab.title" />
-                </TabView>
+                <Tabs class="flex flex-col" v-model:value="activeIndex" @tab-change="updateType">
+                    <TabList>
+                        <Tab v-for="(tab, index) in tabs" :key="tab.title" :value="index">
+                            {{ $t(tab.title) }}
+                        </Tab>
+                    </TabList>
+                </Tabs>
             </div>
             <component :is="tabs[activeIndex]?.component" />
         </div>

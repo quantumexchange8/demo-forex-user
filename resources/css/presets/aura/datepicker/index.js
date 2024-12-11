@@ -84,7 +84,7 @@ export default {
         ]
     },
     inputIconContainer: 'absolute cursor-pointer top-1/2 right-3 -mt-3',
-    inputIcon: 'inline-block text-base',
+    inputIcon: 'inline-block text-gray-400 w-5 h-5',
     panel: ({ props }) => ({
         class: [
             // Display & Position

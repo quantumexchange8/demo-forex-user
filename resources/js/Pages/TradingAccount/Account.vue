@@ -2,7 +2,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Button from "@/Components/Button.vue";
 import {ref, h, watch, onMounted, computed} from "vue";
-import TabView from 'primevue/tabview';
 import Tabs from 'primevue/tabs';
 import TabList from 'primevue/tablist';
 import Tab from 'primevue/tab';
@@ -222,10 +221,6 @@ const noticeVisible = ref(true);
 
                 <!-- tab -->
                 <div class="flex items-center gap-3 self-stretch">
-                    <!-- <TabView class="flex flex-col" :activeIndex="activeIndex" @tab-change="updateType">
-                        <TabPanel v-for="(tab, index) in tabs" :key="index" :header="tab.title" />
-                    </TabView> -->
-
                     <Tabs class="flex flex-col" v-model:value="activeIndex" @tab-change="updateType">
                         <TabList>
                             <Tab v-for="(tab, index) in tabs" :key="tab.title" :value="index">
