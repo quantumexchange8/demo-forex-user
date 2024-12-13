@@ -1,16 +1,12 @@
-<template>
-    <!-- <svg width="1080" height="1080" viewBox="0 0 1080 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M539.951 14.9961L696.011 319.886L540.491 518.306L383.901 329.536L539.951 14.9961Z" fill="#currentColor"/>
-        <path d="M540 612.439L158 165.539V902.819L480.62 1065L341.15 906.789C306.94 867.989 288.63 821.999 288.63 774.899V457.979L540 783.889V612.439Z" fill="#currentColor"/>
-        <path d="M540 612.439L922 165.539V902.819L599.38 1065L738.85 906.789C773.06 867.989 791.37 821.999 791.37 774.899V457.979L540 783.889V612.439Z" fill="#currentColor"/>
-    </svg> -->
-    <!-- <img src="/img/ct-logo-black.png" alt="qcg-logo"/> -->
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
 <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
  width="4096.000000pt" height="2812.000000pt" viewBox="0 0 4096.000000 2812.000000"
  preserveAspectRatio="xMidYMid meet">
 
 <g transform="translate(0.000000,2812.000000) scale(0.100000,-0.100000)"
-fill="#currentColor" stroke="none">
+fill="#000000" stroke="none">
 <path d="M25579 26827 c-106 -30 -98 -23 -1204 -1152 -291 -297 -642 -655
 -780 -795 -137 -140 -360 -367 -495 -505 -134 -137 -366 -374 -515 -525 -149
 -151 -489 -498 -755 -770 -526 -537 -1662 -1696 -2260 -2305 -140 -143 -370
@@ -53,5 +49,3 @@ fill="#currentColor" stroke="none">
 473 28 114 -6 253 -85 344 -109 124 -306 177 -447 119z"/>
 </g>
 </svg>
-
-</template>
