@@ -301,7 +301,7 @@ class TradingAccountController extends Controller
         $payoutSetting = config('payment-gateway');
         $domain = $_SERVER['HTTP_HOST'];
 
-        if ($domain === 'user.mosanes.com') {
+        if ($domain === 'user.currenttech.com') {
             $selectedPayout = $payoutSetting['live'];
         } else {
             $selectedPayout = $payoutSetting['staging'];
@@ -617,7 +617,7 @@ class TradingAccountController extends Controller
         $payoutSetting = config('payment-gateway');
         $domain = $_SERVER['HTTP_HOST'];
 
-        if ($domain === 'user.mosanes.com') {
+        if ($domain === 'user.currenttech.com') {
             $selectedPayout = $payoutSetting['live'];
         } else {
             $selectedPayout = $payoutSetting['staging'];

@@ -19,7 +19,7 @@ class CTraderService
     private string $password = "6i5MQa";
     private string $baseURL = "https://live2-quantumcapital.webapi.ctrader.com:8443";
     private string $token = "3979de07-ad19-4f23-a281-e7e35c9a32af";
-    private string $brokerName = "mosanes";
+    private string $brokerName = "currenttech";
     private string $environmentName = "live2";
 
     public function connectionStatus(): array

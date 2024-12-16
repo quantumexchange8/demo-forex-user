@@ -28,14 +28,14 @@ const items = ref([
         label: 'windows',
         icon: h(IconBrandWindows),
         command: () => {
-            window.location.href = 'https://getctrader.com/mosanes/ctrader-mosanes-setup.exe';
+            window.location.href = '';
         },
     },
     {
         label: 'mac',
         icon: h(IconBrandFinder),
         command: () => {
-            window.location.href = 'https://getctradermac.com/mosanes/ctrader-mosanes-setup.dmg';
+            window.location.href = '';
         },
     }
 ]);
@@ -98,7 +98,7 @@ const toggle = (event) => {
                                 <span class="self-stretch text-gray-500 text-xs">{{ $t('public.popular_browser') }}</span>
                                 <span class="self-stretch text-gray-950 text-xl font-semibold">{{ $t('public.web') }}</span>
                             </div>
-                            <a href="https://app.home.mosanes.com/" class="w-full">
+                            <a href="" class="w-full">
                                 <Button type="button" size="sm" pill variant="primary-flat">
                                         <Link01Icon class="w-4 h-4 text-white" />
                                         <span class="text-white text-center text-sm font-medium">{{ $t('public.web_trader') }}</span>
@@ -113,7 +113,7 @@ const toggle = (event) => {
                                 <span class="self-stretch text-gray-500 text-xs">{{ $t('public.mobile_or_tablet') }}</span>
                                 <span class="self-stretch text-gray-950 text-xl font-semibold">{{ $t('public.ios') }}</span>
                             </div>
-                            <a href="https://apps.apple.com/my/app/ctrader/id767428811" class="w-full">
+                            <a href="" class="w-full">
                                 <div class="w-[108px] h-9 flex justify-center items-start pl-[7.20px] pr-[5.40px] py-[5.50px] gap-[7.20px] bg-black rounded-[5.4px] cursor-pointer hover:bg-gray-700">
                                     <Apple class="w-[18px] h-[21.60px] flex-shrink-0" />
                                     <div class="w-[70.2px] flex flex-col items-start flex-shrink-0">
@@ -131,7 +131,7 @@ const toggle = (event) => {
                                 <span class="self-stretch text-gray-500 text-xs">{{ $t('public.mobile_or_tablet') }}</span>
                                 <span class="self-stretch text-gray-950 text-xl font-semibold">{{ $t('public.android') }}</span>
                             </div>
-                            <a href="https://play.google.com/store/apps/details?id=com.spotware.ct&hl=en" class="w-full">
+                            <a href="" class="w-full">
                                 <div class="w-[108px] h-9 flex justify-center items-center pl-[7.20px] pr-[9px] pt-[4.50px] pb-[3.30px] gap-[6.30px] bg-black rounded-[5.4px] cursor-pointer hover:bg-gray-700">
                                     <PlayStore class="w-[18.90px] h-[21.60px] flex-shrink-0" />
                                     <div class="flex flex-col items-start gap-[2.7px]">

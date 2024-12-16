@@ -205,7 +205,7 @@ const removeKycVerification = () => {
                         <div
                             class="text-lg font-bold text-gray-800 w-full"
                         >
-                            Mosanes.
+                            Current Tech Industries
                         </div>
                     </div>
                 </Link>
@@ -473,7 +473,7 @@ const removeKycVerification = () => {
                             </div>
                         </form>
                     </div>
-                    <div class="text-center text-gray-500 text-xs mt-auto">© 2024 mosanes. All rights reserved.</div>
+                    <div class="text-center text-gray-500 text-xs mt-auto">© 2024 Current Tech Industries. All rights reserved.</div>
                 </div>
             </div>
         </div>
