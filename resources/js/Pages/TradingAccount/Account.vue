@@ -8,7 +8,7 @@ import Tab from 'primevue/tab';
 import TabPanels from 'primevue/tabpanels';
 import TabPanel from 'primevue/tabpanel';
 import IndividualAccounts from '@/Pages/TradingAccount/Partials/IndividualAccounts.vue';
-import ManagedAccounts from '@/Pages/TradingAccount/Partials/ManagedAccounts.vue';
+// import ManagedAccounts from '@/Pages/TradingAccount/Partials/ManagedAccounts.vue';
 import DemoAccounts from '@/Pages/TradingAccount/Partials/DemoAccounts.vue';
 import { usePage, useForm } from "@inertiajs/vue3";
 import Dialog from 'primevue/dialog';
@@ -43,7 +43,7 @@ const demoAccountForm = useForm({
 
 const tabs = ref([
     { title: wTrans('public.individual'), component: h(IndividualAccounts), type: 'individual' },
-    { title: wTrans('public.managed'), component: h(ManagedAccounts), type: 'manage' },
+    // { title: wTrans('public.managed'), component: h(ManagedAccounts), type: 'manage' },
     { title: wTrans('public.demo'), component: h(DemoAccounts), type: 'demo' },
 ]);
 
@@ -212,6 +212,8 @@ const noticeVisible = ref(true);
                                 class="w-[142px] md:w-full"
                                 :size="buttonSize"
                                 @click="openDialog('demo', demoAccountForm)"
+                                disabled
+                                v-tooltip.top="$t('public.demo_unavailable')"
                             >
                                 {{ $t('public.demo_account') }}
                             </Button>
@@ -297,6 +299,7 @@ const noticeVisible = ref(true);
                         </span>
                     </template>
                     </Select>
+                    <InputError :message="liveAccountForm.errors.leverage" />
                 </div>
             </div>
             <div class="self-stretch">

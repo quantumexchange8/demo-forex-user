@@ -51,7 +51,6 @@ class TradingAccountController extends Controller
         $locale = app()->getLocale();
 
         $accountOptions = AccountType::whereNot('account_group', 'Demo Account')
-            ->whereNot('account_group', 'Virtual Account')
             ->where('status', 'active')
             ->get()
             ->map(function ($accountType) use ($locale) {
@@ -77,21 +76,24 @@ class TradingAccountController extends Controller
     public function create_live_account(Request $request)
     {
         // Validate the request data
-        $request->validate([
+        Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id',
             'accountType' => 'required|exists:account_types,account_group',
             'leverage' => 'required|integer|min:1',
-        ]);
+        ])->setAttributeNames([
+            'accountType' => trans('public.account_type'),
+            'leverage' => trans('public.leverage'),
+        ])->validate();
 
         $user = User::find($request->user_id);
 
         // Only create ct_user_id if it is null
-        if ($user->ct_user_id === null) {
-            // Create CT ID to link ctrader account
-            $ctUser = (new CTraderService)->CreateCTID($user->email);
-            $user->ct_user_id = $ctUser['userId'];
-            $user->save();
-        }
+        // if ($user->ct_user_id === null) {
+        //     // Create CT ID to link ctrader account
+        //     $ctUser = (new CTraderService)->CreateCTID($user->email);
+        //     $user->ct_user_id = $ctUser['userId'];
+        //     $user->save();
+        // }
 
         // Retrieve the account type by account_group
         $accountType = AccountType::where('account_group', $request->accountType)->first();
@@ -110,16 +112,47 @@ class TradingAccountController extends Controller
             ]);
         }
 
-        if (App::environment('production')) {
-            $mainPassword = Str::random(8);
-            $investorPassword = Str::random(8);
-            (new CTraderService)->createUser($user,  $mainPassword, $investorPassword, $accountType->account_group, $request->leverage, $accountType->id, null, null, '');
-        }
+        if ($accountType->slug != 'virtual_account') {
+            // if (App::environment('production')) {
+            //     $mainPassword = Str::random(8);
+            //     $investorPassword = Str::random(8);
+            //     (new CTraderService)->createUser($user,  $mainPassword, $investorPassword, $accountType->account_group, $request->leverage, $accountType->id, null, null, '');
+            // }
+    
+            return back()->with('toast', [
+                'title' => trans("public.toast_open_live_account_success"),
+                'type' => 'success',
+            ]);
+        } else {
+            $virtual_account = RunningNumberService::getID('virtual_account');
 
-        return back()->with('toast', [
-            'title' => trans("public.toast_open_live_account_success"),
-            'type' => 'success',
-        ]);
+            TradingAccount::create([
+                'user_id' => $user->id,
+                'meta_login' => $virtual_account,
+                'account_type_id' => $accountType->id,
+                'margin_leverage' => $request->leverage,
+                'currency_digits' => 2,
+                'balance' => 0,
+                'credit' => 0,
+                'equity' => 0,
+            ]);
+
+            TradingUser::create([
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'meta_login' => $virtual_account,
+                'meta_group' => $accountType->name,
+                'account_type_id' => $accountType->id,
+                'leverage' => $request->leverage,
+                'balance' => 0,
+                'credit' => 0,
+            ]);
+
+            return back()->with('toast', [
+                'title' => trans("public.toast_open_live_account_success"),
+                'type' => 'success',
+            ]);
+        }
     }
 
     public function create_demo_account(Request $request)
@@ -143,14 +176,14 @@ class TradingAccountController extends Controller
         $user = Auth::user();
         $accountType = $request->input('accountType');
 
-        $conn = (new CTraderService)->connectionStatus();
-        if ($conn['code'] != 0) {
-            return back()
-                ->with('toast', [
-                    'title' => 'Connection Error',
-                    'type' => 'error'
-                ]);
-        }
+        // $conn = (new CTraderService)->connectionStatus();
+        // if ($conn['code'] != 0) {
+        //     return back()
+        //         ->with('toast', [
+        //             'title' => 'Connection Error',
+        //             'type' => 'error'
+        //         ]);
+        // }
 
         $trading_accounts = $user->tradingAccounts()
             ->whereHas('account_type', function($q) use ($accountType) {
@@ -158,13 +191,13 @@ class TradingAccountController extends Controller
             })
             ->get();
 
-        try {
-            foreach ($trading_accounts as $trading_account) {
-                (new CTraderService)->getUserInfo($trading_account->meta_login);
-            }
-        } catch (\Throwable $e) {
-            Log::error($e->getMessage());
-        }
+        // try {
+        //     foreach ($trading_accounts as $trading_account) {
+        //         (new CTraderService)->getUserInfo($trading_account->meta_login);
+        //     }
+        // } catch (\Throwable $e) {
+        //     Log::error($e->getMessage());
+        // }
 
         $liveAccounts = TradingAccount::with('account_type')
             ->where('user_id', $user->id)
@@ -342,36 +375,36 @@ class TradingAccountController extends Controller
         $amount = $request->amount;
 
         // request withdrawal
-         $conn = (new CTraderService)->connectionStatus();
-         if ($conn['code'] != 0) {
-             return back()
-                 ->with('toast', [
-                     'title' => 'Connection Error',
-                     'type' => 'error'
-                 ]);
-         }
+        //  $conn = (new CTraderService)->connectionStatus();
+        //  if ($conn['code'] != 0) {
+        //      return back()
+        //          ->with('toast', [
+        //              'title' => 'Connection Error',
+        //              'type' => 'error'
+        //          ]);
+        //  }
 
          $tradingAccount = TradingAccount::find($request->account_id);
-         (new CTraderService)->getUserInfo($tradingAccount->meta_login);
+        //  (new CTraderService)->getUserInfo($tradingAccount->meta_login);
 
          if ($tradingAccount->balance < $amount) {
              throw ValidationException::withMessages(['amount' => trans('public.insufficient_balance')]);
          }
 
-         try {
-             $trade = (new CTraderService)->createTrade($tradingAccount->meta_login, $amount,"Withdraw From Account", ChangeTraderBalanceType::WITHDRAW);
-         } catch (\Throwable $e) {
-             if ($e->getMessage() == "Not found") {
-                 TradingUser::firstWhere('meta_login', $tradingAccount->meta_login)->update(['acc_status' => 'Inactive']);
-             } else {
-                 Log::error($e->getMessage());
-             }
-             return back()
-                 ->with('toast', [
-                     'title' => 'Trading account error',
-                     'type' => 'error'
-                 ]);
-         }
+        //  try {
+        //      $trade = (new CTraderService)->createTrade($tradingAccount->meta_login, $amount,"Withdraw From Account", ChangeTraderBalanceType::WITHDRAW);
+        //  } catch (\Throwable $e) {
+        //      if ($e->getMessage() == "Not found") {
+        //          TradingUser::firstWhere('meta_login', $tradingAccount->meta_login)->update(['acc_status' => 'Inactive']);
+        //      } else {
+        //          Log::error($e->getMessage());
+        //      }
+        //      return back()
+        //          ->with('toast', [
+        //              'title' => 'Trading account error',
+        //              'type' => 'error'
+        //          ]);
+        //  }
 
          $amount = $request->input('amount');
          $paymentWallet = PaymentAccount::where('user_id', Auth::id())
@@ -386,7 +419,7 @@ class TradingAccountController extends Controller
              'transaction_number' => RunningNumberService::getID('transaction'),
              'payment_account_id' => $paymentWallet->id,
              'to_wallet_address' => $paymentWallet->account_no,
-             'ticket' => $trade->getTicket(),
+            //  'ticket' => $trade->getTicket(),
              'amount' => $amount,
              'transaction_charges' => 0,
              'transaction_amount' => $amount,
@@ -409,17 +442,17 @@ class TradingAccountController extends Controller
              'account_id' => 'required|exists:trading_accounts,id',
          ]);
 
-         $conn = (new CTraderService)->connectionStatus();
-         if ($conn['code'] != 0) {
-             return back()
-                 ->with('toast', [
-                     'title' => 'Connection Error',
-                     'type' => 'error'
-                 ]);
-         }
+        //  $conn = (new CTraderService)->connectionStatus();
+        //  if ($conn['code'] != 0) {
+        //      return back()
+        //          ->with('toast', [
+        //              'title' => 'Connection Error',
+        //              'type' => 'error'
+        //          ]);
+        //  }
 
          $tradingAccount = TradingAccount::find($request->account_id);
-         (new CTraderService)->getUserInfo(collect($tradingAccount));
+        //  (new CTraderService)->getUserInfo(collect($tradingAccount));
 
          $tradingAccount = TradingAccount::find($request->account_id);
          $amount = $request->input('amount');
@@ -429,27 +462,27 @@ class TradingAccountController extends Controller
              throw ValidationException::withMessages(['wallet' => trans('public.insufficient_balance')]);
          }
 
-         try {
-             $tradeFrom = (new CTraderService)->createTrade($tradingAccount->meta_login, $amount, "Withdraw From Account", ChangeTraderBalanceType::WITHDRAW);
-             $tradeTo = (new CTraderService)->createTrade($to_meta_login, $amount, "Deposit To Account", ChangeTraderBalanceType::DEPOSIT);
-         } catch (\Throwable $e) {
-             if ($e->getMessage() == "Not found") {
-                 TradingUser::firstWhere('meta_login', $tradingAccount->meta_login)->update(['acc_status' => 'Inactive']);
-             } else {
-                 Log::error($e->getMessage());
-             }
-             return response()->json(['success' => false, 'message' => $e->getMessage()]);
-         }
+        //  try {
+        //      $tradeFrom = (new CTraderService)->createTrade($tradingAccount->meta_login, $amount, "Withdraw From Account", ChangeTraderBalanceType::WITHDRAW);
+        //      $tradeTo = (new CTraderService)->createTrade($to_meta_login, $amount, "Deposit To Account", ChangeTraderBalanceType::DEPOSIT);
+        //  } catch (\Throwable $e) {
+        //      if ($e->getMessage() == "Not found") {
+        //          TradingUser::firstWhere('meta_login', $tradingAccount->meta_login)->update(['acc_status' => 'Inactive']);
+        //      } else {
+        //          Log::error($e->getMessage());
+        //      }
+        //      return response()->json(['success' => false, 'message' => $e->getMessage()]);
+        //  }
 
-         $ticketFrom = $tradeFrom->getTicket();
-         $ticketTo = $tradeTo->getTicket();
+        //  $ticketFrom = $tradeFrom->getTicket();
+        //  $ticketTo = $tradeTo->getTicket();
          Transaction::create([
              'user_id' => Auth::id(),
              'category' => 'trading_account',
              'transaction_type' => 'account_to_account',
              'from_meta_login' => $tradingAccount->meta_login,
              'to_meta_login' => $to_meta_login,
-             'ticket' => $ticketFrom . ','. $ticketTo,
+            //  'ticket' => $ticketFrom . ','. $ticketTo,
              'transaction_number' => RunningNumberService::getID('transaction'),
              'amount' => $amount,
              'transaction_charges' => 0,
@@ -490,13 +523,13 @@ class TradingAccountController extends Controller
         ]);
 
         // Check connection status
-        $conn = (new CTraderService)->connectionStatus();
-        if ($conn['code'] != 0) {
-            return back()->with('toast', [
-                'title' => 'Connection Error',
-                'type' => 'error'
-            ]);
-        }
+        // $conn = (new CTraderService)->connectionStatus();
+        // if ($conn['code'] != 0) {
+        //     return back()->with('toast', [
+        //         'title' => 'Connection Error',
+        //         'type' => 'error'
+        //     ]);
+        // }
 
         // Retrieve the TradingAccount by its ID
         $tradingAccount = TradingAccount::findOrFail($request->account_id);
@@ -565,7 +598,7 @@ class TradingAccountController extends Controller
             ->first();
 
         try {
-            (new CTraderService)->deleteTrader($account->meta_login);
+            // (new CTraderService)->deleteTrader($account->meta_login);
 
             $account->delete();
             $trading_user->delete();

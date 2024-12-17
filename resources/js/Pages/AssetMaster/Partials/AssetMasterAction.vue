@@ -154,7 +154,7 @@ const addToFavourites = async (masterId) => {
                             <div v-if="master.profile_photo">
                                 <img :src="master.profile_photo" alt="Profile Photo" />
                             </div>
-                            <div v-else>
+                            <div v-else class="h-full">
                                 <DefaultProfilePhoto />
                             </div>
                         </div>

@@ -342,7 +342,7 @@ getAvailableAccounts();
                                     <div v-if="master.master_profile_photo">
                                         <img :src="master.master_profile_photo" alt="Profile Photo" />
                                     </div>
-                                    <div v-else>
+                                    <div v-else class="h-full">
                                         <DefaultProfilePhoto />
                                     </div>
                                 </div>

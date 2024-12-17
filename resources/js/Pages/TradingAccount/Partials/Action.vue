@@ -56,7 +56,7 @@ const items = ref([
                 });
             }
         },
-        account_type: 'standard_account'
+        account_type: 'virtual_account'
     },
     {
         label: 'revoke_pamm',
