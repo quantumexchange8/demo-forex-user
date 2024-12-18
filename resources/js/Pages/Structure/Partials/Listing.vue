@@ -232,7 +232,7 @@ watchEffect(() => {
                             <div v-if="slotProps.data.profile_photo">
                                 <img :src="slotProps.data.profile_photo" alt="">
                             </div>
-                            <div v-else>
+                            <div v-else class="h-full">
                                 <DefaultProfilePhoto />
                             </div>
                         </div>
@@ -266,7 +266,7 @@ watchEffect(() => {
                             <div v-if="slotProps.data.upline_profile_photo">
                                 <img :src="slotProps.data.upline_profile_photo" alt="">
                             </div>
-                            <div v-else>
+                            <div v-else class="h-full">
                                 <DefaultProfilePhoto />
                             </div>
                         </div>

@@ -26,7 +26,7 @@ const $page = usePage();
                 <div v-if="$page.props.auth.profile_photo">
                     <img :src="$page.props.auth.profile_photo" alt="Profile Photo" />
                 </div>
-                <div v-else>
+                <div v-else class="h-full">
                     <DefaultProfilePhoto />
                 </div>
             </div>

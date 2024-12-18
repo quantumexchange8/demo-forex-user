@@ -80,7 +80,7 @@ watch(() => props.removeImg, () => {
         <div v-if="src">
             <img :src="src" alt="Avatar" class="h-full w-full object-cover" />
         </div>
-        <div v-else>
+        <div v-else class="h-full">
             <DefaultProfilePhoto />
         </div>
         <div class="absolute top-0 h-full w-full bg-black bg-opacity-25 flex justify-center items-center space-x-2">
